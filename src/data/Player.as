@@ -1,6 +1,7 @@
 package data
 {
     import org.flixel.*;
+	import Utils;
  
     public class Player extends FlxSprite
     {
@@ -11,6 +12,7 @@ package data
 		[Embed(source = "../assets/sounds/switch.mp3")] private var switchSound:Class;
 		[Embed(source = "../assets/sounds/hit.mp3")] private var hitSound:Class;
 		
+		//Set local variables
 		private var ontile:uint;
 		private var onpickup:uint;
 		private var counter:Number = 2;
@@ -18,8 +20,12 @@ package data
         public function Player(x:Number,y:Number):void
         {
             super(x, y)
+			
+			//Load in the player graphic.
 			loadGraphic(ImgPlayer, true, false);
 			
+			
+			//Set the hitbox for the player.
 			width = 10;
 			height = 10;
 			offset.x = 3;
@@ -37,16 +43,18 @@ package data
         override public function update():void
         {
 			super.update();
+			
 			//Global Timer for Player
 			counter += FlxG.elapsed;
 
 			//Stop player from sliding unless he is on an ice tile.
-            if (ontile != 22)
+            if (ontile != Registry.iceTile)
 			{
 				velocity.x = 0;
 				velocity.y = 0;
 			}
 			
+			//execute all the functions
 			controls();
 			screenCollide();
 			tilestuff();
@@ -54,6 +62,8 @@ package data
 			
         }
 		
+		
+		//Keeps the player on the map.
 		public function screenCollide():void
 		{
 			if (x > PlayState.floor.width - width)
@@ -72,6 +82,7 @@ package data
 			}
 		}
 		
+		//Player controls.
 		public function controls():void
 		{
  
@@ -100,281 +111,258 @@ package data
 				play("still");
 			}
 			
+			//Reset the level by pressing R
 			if(FlxG.keys.R)
             {
+				//Reset
                 FlxG.resetState();
+				
+				//Reset score
 				Registry.scoreThisLevel = 0;
             }
 		}
 		
 		public function tilestuff():void
 		{	
-			ontile = PlayState.floor.getTile(Math.floor((x + offset.x) / 16), Math.floor((y + offset.y) / 16));
-			onpickup = PlayState.pickups.getTile(Math.floor((x + offset.x) / 16), Math.floor((y + offset.y) / 16));
+			//Find out what tile the player is standing on.
+			ontile = PlayState.floor.getTile(Math.floor((x + offset.x) / Registry.tileSize), Math.floor((y + offset.y) / Registry.tileSize));
 			
-
-			if (ontile == 3)
+			//Same thing but for the coins
+			onpickup = PlayState.pickups.getTile(Math.floor((x + offset.x) / Registry.tileSize), Math.floor((y + offset.y) / Registry.tileSize));
+			
+			
+			if (ontile == Registry.tramRight)
 			{
 				velocity.x = Registry.moveSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 4)
+			if (ontile == Registry.tramLeft)
 			{
 				velocity.x = -Registry.moveSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 5)
+			if (ontile == Registry.tramUp)
 			{
 				velocity.y = -Registry.moveSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 6)
+			if (ontile == Registry.tramDown)
 			{
 				velocity.y = Registry.moveSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 27)
+			if (ontile == Registry.tramBR)
 			{
 				velocity.x = Registry.tramSpeed;
 				velocity.y = -Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 28)
+			if (ontile == Registry.tramTR)
 			{
 				velocity.y = -Registry.tramSpeed;
 				velocity.x = -Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 29)
+			if (ontile == Registry.tramTL)
 			{
 				velocity.x = -Registry.tramSpeed;
 				velocity.y = Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 30)
+			if (ontile == Registry.tramBL)
 			{
 				velocity.y = Registry.tramSpeed;
 				velocity.x = Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 31)
+			if (ontile == Registry.tramTRrev)
 			{
 				velocity.x = Registry.tramSpeed;
 				velocity.y = Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 32)
+			if (ontile == Registry.tramTLrev)
 			{
 				velocity.y = -Registry.tramSpeed;
 				velocity.x = Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 33)
+			if (ontile == Registry.tramBLrev)
 			{
 				velocity.x = -Registry.tramSpeed;
 				velocity.y = -Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
-			if (ontile == 34)
+			if (ontile == Registry.tramBRrev)
 			{
 				velocity.y = Registry.tramSpeed;
 				velocity.x = -Registry.tramSpeed;
 				FlxG.play(tramSound);
 			}
 			
-			if (ontile == 7)
+			//Dangerous lava!
+			if (ontile == Registry.lavaTile)
 			{
 				Registry.scoreThisGame += Registry.scoreThisLevel;
 				FlxG.play(hitSound);
 				FlxG.switchState(new scoreBoard);
 			}
-			if (ontile == 2)
+			
+			//Win Tile
+			if (ontile == Registry.goalTile)
 			{
+				
+				//Set some variables
 				Registry.currentLevel += 1;
 				Registry.scoreThisGame += Registry.scoreThisLevel;
 				Registry.scoreThisLevel = 0;
+				
+				//Swap to the scoreboard state.
 				FlxG.switchState(new scoreBoard);
 			}
 			
-			//When we are on our yellow key (10) we remove the coresponding doors.
-			if (ontile == 10)
+			//When we are on our yellow key (Registry.keyY) we remove the coresponding doors.
+			if (ontile == Registry.keyY)
 			{
-				replaceTiles("solids", 14, 0);
-				replaceTiles("floor", 10, 21);
+				Utils.replaceTiles("solids", Registry.doorY, Registry.blankTile);
+				Utils.replaceTiles("floor", Registry.keyY, Registry.keyGone);
 				FlxG.play(switchSound);
-				counter = 0;
 			}
-			//When we are on our green key (13) we remove the coresponding doors.
-			if (ontile == 13)
+			//When we are on our green key (Registry.keyG) we remove the coresponding doors.
+			if (ontile == Registry.keyG)
 			{
-				replaceTiles("solids", 17, 0)
-				replaceTiles("floor", 13, 21);
+				Utils.replaceTiles("solids", Registry.doorG, Registry.blankTile)
+				Utils.replaceTiles("floor", Registry.keyG, Registry.keyGone);
 				FlxG.play(switchSound);
-				counter = 0;
 			}
-			//When we are on our blue key (11) we remove the coresponding doors.
-			if (ontile == 11)
+			//When we are on our blue key (Registry.keyB) we remove the coresponding doors.
+			if (ontile == Registry.keyB)
 			{
-				replaceTiles("solids", 15, 0);
-				replaceTiles("floor", 11, 21);
+				Utils.replaceTiles("solids", Registry.doorB, Registry.blankTile);
+				Utils.replaceTiles("floor", Registry.keyB, Registry.keyGone);
 				FlxG.play(switchSound);
-				counter = 0;
 			}
-			//When we are on our orange key (10) we remove the coresponding doors.
-			if (ontile == 12)
+			//When we are on our orange key (Registry.keyR) we remove the coresponding doors.
+			if (ontile == Registry.keyR)
 			{
-				replaceTiles("solids", 16, 0);
-				replaceTiles("floor", 12, 21);
+				Utils.replaceTiles("solids", Registry.doorR, Registry.blankTile);
+				Utils.replaceTiles("floor", Registry.keyR, Registry.keyGone);
 				FlxG.play(switchSound);
-				counter = 0;
 			}
 			//If we are on a coin then add points and remove the coin.
-			if (onpickup == 19)
+			if (onpickup == Registry.coinTile)
 			{
 				Registry.scoreThisLevel += 1;
 				FlxG.play(coinSound);
-				removeTile("pickups",x + offset.x, y + offset.y);
+				Utils.removeTile("pickups",x + offset.x, y + offset.y);
 				
 			}
 			
 			//Tram toggle switch
-			if ((ontile == 8 || ontile == 23) && counter > 1)
+			if ((ontile == Registry.tramSwitch || ontile == Registry.tramSwitchrev) && counter > 1)
 			{
-				//This works but its kind of a hack.
-					replaceTiles("floor", 3, 18)
-					replaceTiles("floor", 4, 3);
-					replaceTiles("floor", 18, 4);
-					replaceTiles("floor", 5, 18);
-					replaceTiles("floor", 6, 5);
-					replaceTiles("floor", 18, 6);
-					replaceTiles("floor", 27, 18);
-					replaceTiles("floor", 34, 27);
-					replaceTiles("floor", 18, 34);
-					replaceTiles("floor", 28, 18);
-					replaceTiles("floor", 31, 28);
-					replaceTiles("floor", 18, 31);
-					replaceTiles("floor", 29, 18);
-					replaceTiles("floor", 32, 29);
-					replaceTiles("floor", 18, 32);
-					replaceTiles("floor", 30, 18);
-					replaceTiles("floor", 33, 30);
-					replaceTiles("floor", 18, 33);
+				//This works but its kind of a hack. Replace all the tram tiles with opposite tiles.
 					
+					//Swap left and right tiles
+					Utils.replaceTiles("floor", Registry.tramRight, Registry.tempTile)
+					Utils.replaceTiles("floor", Registry.tramLeft, Registry.tramRight);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramLeft);
 					
-					//Registry.tramSpeed = Registry.tramSpeed * -1;
-					if(ontile == 8) replaceTiles("floor", 8, 23);
-					if(ontile == 23) replaceTiles("floor", 23, 8);
+					//Swap up and down tiles
+					Utils.replaceTiles("floor", Registry.tramUp, Registry.tempTile);
+					Utils.replaceTiles("floor", Registry.tramDown, Registry.tramUp);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramDown);
+					
+					//Swap bottom right tiles
+					Utils.replaceTiles("floor", Registry.tramBR, Registry.tempTile);
+					Utils.replaceTiles("floor", Registry.tramBRrev, Registry.tramBR);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramBRrev);
+					
+					//Swap bottom left tiles
+					Utils.replaceTiles("floor", Registry.tramBL, Registry.tempTile);
+					Utils.replaceTiles("floor", Registry.tramBLrev, Registry.tramBL);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramBLrev);
+					
+					//Swap top right tiles.
+					Utils.replaceTiles("floor", Registry.tramTR, Registry.tempTile);
+					Utils.replaceTiles("floor", Registry.tramTRrev, Registry.tramTR);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramTRrev);
+					
+					//Swap top left tiles
+					Utils.replaceTiles("floor", Registry.tramTL, Registry.tempTile);
+					Utils.replaceTiles("floor", Registry.tramTLrev, Registry.tramTL);
+					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramTLrev);
+					
+					//Replace the key with empty key tile
+					if(ontile == Registry.tramSwitch) Utils.replaceTiles("floor", Registry.tramSwitch, Registry.tramSwitchrev);
+					if (ontile == Registry.tramSwitchrev) Utils.replaceTiles("floor", Registry.tramSwitchrev, Registry.tramSwitch);
+					
+					//Play switch sound
 					FlxG.play(switchSound);
+					
+					//reset time the player is on the tile.
 					counter = 0;
 			}
 		}
 		
-		public function replaceTiles(layer:String,x:uint,n:uint):void
-		{
-			var i:uint = 0;
-			var Tiles:Array;
-			
-			switch (layer)
-			{
-			case "solids":
-			Tiles = PlayState.solids.getTileInstances(x);
-			if (Tiles)
-				{
-					for (i = 0; i < Tiles.length; i++) 
-					{
-						PlayState.solids.setTileByIndex(Tiles[i], n, true);	
-					}
-				}
-			break;
-			case "floor":
-			Tiles = PlayState.floor.getTileInstances(x);
-			if (Tiles)
-				{
-					for (i = 0; i < Tiles.length; i++) 
-					{
-						PlayState.floor.setTileByIndex(Tiles[i], n, true);
-					}
-				}
-			break;
-			}
-		}
-		
-		public function removeTile(layer:String,x:uint,y:uint):void
-		{
-			var location:uint;
-			
-			switch (layer)
-			{
-			case "floor":
-			location = Math.floor(x / 16) + Math.floor(y / 16) * PlayState.floor.widthInTiles;
-			PlayState.floor.setTileByIndex(location,0)
-			break;
-			case "pickups":
-			location = Math.floor(x / 16) + Math.floor(y / 16) * PlayState.pickups.widthInTiles;
-			PlayState.pickups.setTileByIndex(location,0)
-			break;
-			}
-		}
+		//I hate this function but it seems to be necessary to keep the player on the conveyor belts.
 		public function moveCorrect():void
 		{
-			if (ontile != 3 && ontile != 4 && ontile != 5 && ontile != 6
-			&& ontile != 27 && ontile != 28 && ontile != 29 && ontile != 30
-			&& ontile != 31 && ontile != 32 && ontile != 33 && ontile != 34)
+			//if we are not on a conveyor belt then use this code to funnel through doors. Prevents player from sticking on edges.
+			if (ontile != Registry.tramRight && ontile != Registry.tramLeft && ontile != Registry.tramUp && ontile != Registry.tramDown
+			&& ontile != Registry.tramBR && ontile != Registry.tramTR && ontile != Registry.tramTL && ontile != Registry.tramBL
+			&& ontile != Registry.tramTRrev && ontile != Registry.tramTLrev && ontile != Registry.tramBLrev && ontile != Registry.tramBRrev)
 			{
-				if (((Registry.player.x + 6) % 16) > 6 && Registry.collideCheck && Registry.player.velocity.x == 0)
+				if (((Registry.player.x + 6) % Registry.tileSize) > 6 && Registry.collideCheck && Registry.player.velocity.x == 0)
 				{
 					x -= Registry.player.width/2;
 				}
-				if (((Registry.player.x + 6) % 16) < 6 && Registry.collideCheck && Registry.player.velocity.x == 0)
+				if (((Registry.player.x + 6) % Registry.tileSize) < 6 && Registry.collideCheck && Registry.player.velocity.x == 0)
 				{
 					x += Registry.player.width/2;
 				}
-				if (((Registry.player.y + 4) % 16) > 4 && Registry.collideCheck && Registry.player.velocity.y == 0)
+				if (((Registry.player.y + 4) % Registry.tileSize) > 4 && Registry.collideCheck && Registry.player.velocity.y == 0)
 				{
 					y -= Registry.player.height/2;
 				}
-				if (((Registry.player.y + 4) % 16) < 4 && Registry.collideCheck && Registry.player.velocity.y == 0)
+				if (((Registry.player.y + 4) % Registry.tileSize) < 4 && Registry.collideCheck && Registry.player.velocity.y == 0)
 				{
 					y += Registry.player.height/2;
 				}
 			}
 			else
 			{
-				if (ontile == 27 && ((Registry.player.x + offset.x) % 16) >= 12)
+				if (ontile == Registry.tramBR && ((Registry.player.x + offset.x) % Registry.tileSize) >= 12)
 				{
 					x -= Registry.correctDist;
 				}
-				if (ontile == 29 && ((Registry.player.x + offset.x) % 16) <= 4)
+				if (ontile == Registry.tramTL && ((Registry.player.x + offset.x) % Registry.tileSize) <= 4)
 				{
 					x += Registry.correctDist;
 				}
-				if (ontile == 30 && ((Registry.player.y + offset.y) % 16) >= 12)
+				if (ontile == Registry.tramBL && ((Registry.player.y + offset.y) % Registry.tileSize) >= 12)
 				{
 					y -= Registry.correctDist;
 				}
-				if (ontile == 28 && ((Registry.player.y + offset.y) % 16) <= 4)
+				if (ontile == Registry.tramTR && ((Registry.player.y + offset.y) % Registry.tileSize) <= 4)
 				{
 					y += Registry.correctDist;
 				}
 				
-				if (ontile == 31 && ((Registry.player.x + offset.x) % 16) >= 12)
+				if (ontile == Registry.tramTRrev && ((Registry.player.x + offset.x) % Registry.tileSize) >= 12)
 				{
-					trace("31");
 					x -= Registry.correctDist;
 				}
-				if (ontile == 33 && ((Registry.player.x + offset.x) % 16) <= 4)
+				if (ontile == Registry.tramBLrev && ((Registry.player.x + offset.x) % Registry.tileSize) <= 4)
 				{
-					trace("33");
 					x += Registry.correctDist;
 				}
-				if (ontile == 34 && ((Registry.player.y + offset.y) % 16) >= 12)
+				if (ontile == Registry.tramBRrev && ((Registry.player.y + offset.y) % Registry.tileSize) >= 12)
 				{
-					trace("34");
 					y -= Registry.correctDist;
 				}
-				if (ontile == 32 && ((Registry.player.y + offset.y) % 16) <= 4)
+				if (ontile == Registry.tramTLrev && ((Registry.player.y + offset.y) % Registry.tileSize) <= 4)
 				{
-					trace("32");
 					y += Registry.correctDist;
 				}
 			}
