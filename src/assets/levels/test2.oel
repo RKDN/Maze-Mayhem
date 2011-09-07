@@ -1,0 +1,56 @@
+<level>
+  <width>1000</width>
+  <height>800</height>
+  <spawn set="tiles" tileWidth="16" tileHeight="16">
+    <tile id="20" x="0" y="192"/>
+  </spawn>
+  <floor set="tiles" tileWidth="16" tileHeight="16">
+    <tile id="0" x="0" y="160"/>
+    <tile id="1" x="0" y="176"/>
+    <tile id="1" x="16" y="176"/>
+    <tile id="1" x="0" y="192"/>
+    <tile id="1" x="16" y="192"/>
+    <tile id="1" x="32" y="192"/>
+    <tile id="1" x="32" y="208"/>
+    <tile id="1" x="32" y="224"/>
+    <tile id="1" x="32" y="240"/>
+    <tile id="1" x="32" y="256"/>
+    <tile id="1" x="32" y="272"/>
+    <tile id="1" x="16" y="304"/>
+    <tile id="1" x="32" y="304"/>
+    <tile id="1" x="48" y="304"/>
+    <tile id="1" x="64" y="304"/>
+    <tile id="1" x="48" y="272"/>
+    <tile id="1" x="48" y="256"/>
+    <tile id="1" x="48" y="240"/>
+    <tile id="1" x="48" y="224"/>
+    <tile id="1" x="48" y="208"/>
+    <tile id="1" x="48" y="192"/>
+    <tile id="30" x="0" y="304"/>
+    <tile id="6" x="0" y="288"/>
+    <tile id="6" x="0" y="272"/>
+    <tile id="6" x="0" y="256"/>
+    <tile id="6" x="0" y="240"/>
+    <tile id="6" x="0" y="224"/>
+    <tile id="6" x="0" y="208"/>
+    <tile id="24" x="16" y="208"/>
+    <tile id="24" x="16" y="224"/>
+    <tile id="24" x="16" y="240"/>
+    <tile id="24" x="16" y="256"/>
+    <tile id="24" x="16" y="272"/>
+    <tile id="24" x="16" y="288"/>
+    <tile id="24" x="32" y="288"/>
+    <tile id="24" x="48" y="288"/>
+    <tile id="24" x="64" y="288"/>
+  </floor>
+  <pickups set="tiles" tileWidth="16" tileHeight="16">
+    <tile id="19" x="48" y="224"/>
+  </pickups>
+  <foreground set="tiles" tileWidth="16" tileHeight="16">
+    <tile id="26" x="32" y="272"/>
+    <tile id="3" x="16" y="304"/>
+    <tile id="3" x="32" y="304"/>
+    <tile id="3" x="48" y="304"/>
+    <tile id="3" x="64" y="304"/>
+  </foreground>
+</level>

@@ -1,0 +1,18 @@
+<project>
+	<name>RKDN Map</name>
+	<settings>
+		<defaultWidth>1000</defaultWidth>
+		<defaultHeight>800</defaultHeight>
+		<workingDirectory>../</workingDirectory>
+	</settings>
+	<tilesets>
+		<tileset name="tiles" image="tiles.png" tileWidth="16" tileHeight="16" />
+	</tilesets>
+	<layers>
+		<tiles name="spawn" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<tiles name="floor" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<tiles name="pickups" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<tiles name="solids" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<tiles name="foreground" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+	</layers>
+</project>
