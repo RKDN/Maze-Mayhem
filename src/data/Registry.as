@@ -1,29 +1,48 @@
 package data
 {
-    import org.flixel.*;
- 
-    public class Registry
-    {
+	import org.flixel.*;
+	
+	public class Registry
+	{
+		//Player Image
+		[Embed(source = "/assets/player.png")] public static var ImgPlayer:Class;
+		
+		//Sounds
+		[Embed(source = "/assets/sounds/coin.mp3")] public static var coinSound:Class;
+		[Embed(source = "/assets/sounds/tram.mp3")] public static var tramSound:Class;
+		[Embed(source = "/assets/sounds/switch.mp3")] public static var switchSound:Class;
+		[Embed(source = "/assets/sounds/hit.mp3")] public static var hitSound:Class;
+		
+		//Maps
+		[Embed(source = '/assets/levels/test.oel', mimeType = 'application/octet-stream')] public static var Level1:Class;
+		[Embed(source = '/assets/levels/map2.oel', mimeType = 'application/octet-stream')] public static var Level2:Class;
+		
+		//Music
+		[Embed(source = "/assets/sounds/Cipher.mp3")] public static var music:Class;
+		
+		//Tilesheet
+		[Embed(source="/assets/tiles.png")] public static var ImgTiles:Class;
+		
 		// Reference to the player
-        public static var player:Player;
+		public static var player:Player;
 		
 		// Speed the player moves
 		public static var moveSpeed:int = 100;
 		
 		// Time spent on the level
-		public static var timeThisLevel:Number
+		public static var timeThisLevel:Number = 0;
 		
 		// Time spent on the game
 		public static var timeTotal:Number
 		
 		// Keeps track of the current level
-        public static var currentLevel:int = 1;
+		public static var currentLevel:int = 1;
 		
 		// Keeps track of the score for the current level
-        public static var scoreThisLevel:int = 0;
+		public static var scoreThisLevel:int = 0;
 		
 		// Keeps track of the score for the whole game
-        public static var scoreThisGame:int = 0;
+		public static var scoreThisGame:int = 0;
 		
 		//Used for checking if the player is colliding with something.
 		public static var collideCheck:Boolean;
@@ -89,6 +108,8 @@ package data
 		//Goal Tile
 		public static var goalTile:uint = 2;
 		
-		
-    }
+		//Win variable
+		public static var hasWon:Boolean = false;
+	
+	}
 }

@@ -50,7 +50,80 @@ package
 			PlayState.pickups.setTileByIndex(location,Registry.blankTile)
 			break;
 			}
-		}		
+		}
+		
+		public static function ontile(layer:String,x:uint,y:uint,width:uint,height:uint):uint
+		{
+			var ontile:uint;
+			
+			switch(layer)
+			{
+				case "floor":
+					if(FlxG.keys.UP)
+					{
+						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
+					}
+					if(FlxG.keys.DOWN)
+					{
+						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
+					}
+					if(FlxG.keys.LEFT)
+					{
+						ontile = PlayState.floor.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+					if(FlxG.keys.RIGHT)
+					{
+						ontile = PlayState.floor.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+					else
+					{
+						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+				break;
+				
+				case "pickups":
+					if(FlxG.keys.UP)
+					{
+						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
+					}
+					if(FlxG.keys.DOWN)
+					{
+						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
+					}
+					if(FlxG.keys.LEFT)
+					{
+						ontile = PlayState.pickups.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+					if(FlxG.keys.RIGHT)
+					{
+						ontile = PlayState.pickups.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+					else
+					{
+						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+					}
+				break;
+			}			
+			return ontile;
+		}
+		
+		//Some usefull checking functions.
+		public static function checkTopLeft():uint
+		{
+			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.player.width - Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.player.height - Registry.tileSize) / Registry.tileSize))
+		}
+		public static function checkTopRight():uint
+		{
+			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y  + Registry.player.height - Registry.tileSize) / Registry.tileSize))
+		}
+		public static function checkBotLeft():uint
+		{
+			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.player.width - Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.tileSize) / Registry.tileSize))
+		}
+		public static function checkBotRight():uint
+		{
+			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.tileSize) / Registry.tileSize))
+		}
 	}
 
 }

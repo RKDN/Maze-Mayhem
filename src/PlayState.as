@@ -5,15 +5,6 @@ package
  
     public class PlayState extends FlxState
     {
-		//Maps
-		[Embed(source = 'assets/levels/map1.oel', mimeType = 'application/octet-stream')] private var Level1:Class;
-		[Embed(source = 'assets/levels/map2.oel', mimeType = 'application/octet-stream')] private var Level2:Class;
-		
-		//Music
-		[Embed(source = "assets/sounds/Cipher.mp3")] private var music:Class;
-		
-		//Tilesheet
-		[Embed(source="assets/tiles.png")] private var ImgTiles:Class;
 		
 		//Map layers
 		public static var spawn:FlxTilemap;
@@ -24,6 +15,7 @@ package
 		
 		//Score
 		public static var score:FlxText;
+		public static var time:FlxText;
 		
 		//Number of coins in the level.
 		public static var coinCount:uint;
@@ -43,7 +35,7 @@ package
 			FlxG.camera.zoom = 2;
 			
 			//music
-			FlxG.playMusic(music, .5);
+			FlxG.playMusic(Registry.music, .5);
 			
 			super.create();
         }
@@ -61,7 +53,10 @@ package
 			Registry.timeThisLevel += FlxG.elapsed;
 			
 			//update score text
-			score.text = "Coins " + String(Registry.scoreThisLevel) + " / " + String(coinCount) + "  " + "Press R to Restart Level.";
+			score.text = "Coins " + String(Registry.scoreThisLevel) + " / " + String(coinCount)  + "   " + "Press R to Restart Level.";
+			
+			//update time text
+			time.text = "Time: " + String(FlxU.formatTime(Registry.timeThisLevel));
         }
 		
 		public function loadMap():void
@@ -70,15 +65,15 @@ package
 			var level:OgmoLevel;
 			
 			//Decide which level we are on. Defaults to 1
-			if (Registry.currentLevel == 1) level = new OgmoLevel(new Level1);
-			if(Registry.currentLevel == 2) level = new OgmoLevel(new Level2);
+			if (Registry.currentLevel == 1) level = new OgmoLevel(new Registry.Level1);
+			if(Registry.currentLevel == 2) level = new OgmoLevel(new Registry.Level2);
 
 			//Load each layer
-			spawn = level.loadTilemap("spawn", ImgTiles);
-			pickups= level.loadTilemap("pickups", ImgTiles);
-			floor= level.loadTilemap("floor", ImgTiles);
-			solids= level.loadTilemap("solids", ImgTiles);
-			foreground = level.loadTilemap("foreground", ImgTiles);
+			spawn = level.loadTilemap("spawn", Registry.ImgTiles);
+			pickups= level.loadTilemap("pickups", Registry.ImgTiles);
+			floor= level.loadTilemap("floor", Registry.ImgTiles);
+			solids= level.loadTilemap("solids", Registry.ImgTiles);
+			foreground = level.loadTilemap("foreground", Registry.ImgTiles);
 			
 			//add the layers to the state
 			add(spawn)
@@ -104,8 +99,16 @@ package
 			score.scrollFactor.x = 0;
 			score.scrollFactor.y = 0;
 			
+			//Time display setup
+			time = new FlxText(FlxG.width/2/2,FlxG.height/2/2 + 220 ,300,"Time")
+            time.setFormat(null, 8, 0xcccccccc)
+			time.scrollFactor.x = 0;
+			time.scrollFactor.y = 0;
+			
 			//add the score on top
             add(score);
+			//add time to screen
+			add(time);
 		}
     }
 }
