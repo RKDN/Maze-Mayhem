@@ -5,6 +5,16 @@ package
 	
 	public class Utils 
 	{
+		
+		public static function getDistance(P1:FlxSprite, P2:FlxSprite):Number
+		{
+			var XX:Number = P2.x - P1.x;
+			var YY:Number = P2.y - P1.y;
+			return Math.sqrt( XX * XX + YY * YY );
+		
+		}
+		
+		
 		public static function replaceTiles(layer:String,x:uint,n:uint):void
 		{
 			var i:uint = 0;

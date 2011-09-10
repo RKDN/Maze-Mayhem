@@ -114,8 +114,10 @@ package data
 				//Reset
                 FlxG.resetState();
 				
-				//Reset score
+				//Reset stuff
 				Registry.scoreThisLevel = 0;
+				Registry.timeThisLevel = 0;
+				Registry.haskeys
             }
 		}
 		
@@ -123,9 +125,6 @@ package data
 		{	
 			//Find out what tile the player is standing on.
 			ontile = Utils.ontile("floor", x, y, width, height);
-			
-			//Same thing but for the coins
-			onpickup = Utils.ontile("pickups", x, y, width, height);
 			
 			
 			
@@ -232,7 +231,6 @@ package data
 			{
 				Utils.replaceTiles("solids", Registry.doorY, Registry.blankTile);
 				Utils.replaceTiles("floor", Registry.keyY, Registry.keyGone);
-				FlxG.play(Registry.switchSound);
 			}
 			//When we are on our green key (Registry.keyG) we remove the coresponding doors.
 			if (ontile == Registry.keyG)
@@ -254,34 +252,6 @@ package data
 				Utils.replaceTiles("solids", Registry.doorR, Registry.blankTile);
 				Utils.replaceTiles("floor", Registry.keyR, Registry.keyGone);
 				FlxG.play(Registry.switchSound);
-			}
-			//If we are on a coin then add points and remove the coin.
-			if (onpickup == Registry.coinTile)
-			{
-				Registry.scoreThisLevel += 1;
-				FlxG.play(Registry.coinSound);
-				
-				if(FlxG.keys.UP)
-				{
-					Utils.removeTile("pickups", x + (width/2), y);
-				}
-				if(FlxG.keys.DOWN)
-				{
-					Utils.removeTile("pickups", x + width/2, y+height);
-				}
-				if(FlxG.keys.LEFT)
-				{
-					Utils.removeTile("pickups", x, y + (height/2));
-				}
-				if(FlxG.keys.RIGHT)
-				{
-					Utils.removeTile("pickups", x + width, y + (height/2));
-				}
-				else
-				{
-					Utils.removeTile("pickups", x + (width/2), y + (height/2));
-				}
-				
 			}
 			
 			//Tram toggle switch

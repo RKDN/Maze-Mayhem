@@ -8,11 +8,23 @@
 	<tilesets>
 		<tileset name="tiles" image="tiles.png" tileWidth="16" tileHeight="16" />
 	</tilesets>
+	<objects>
+		<object name="spawn" image="spawn.png" width="16" height="16" limit="1"/>
+		<object name="enemy" image="enemy.png" width="16" height="16"/>
+		<object name="coin" image="ogmocoin.png" width="8" height="8"/>
+		<object name="yellowkey" image="yellowKey.png" width="16" height="16"/>
+		<object name="yellowdoor" image="yellowDoor.png" width="16" height="16"/>
+		<object name="bluekey" image="blueKey.png" width="16" height="16"/>
+		<object name="bluedoor" image="blueDoor.png" width="16" height="16"/>
+		<object name="greenkey" image="greenKey.png" width="16" height="16"/>
+		<object name="greendoor" image="greenDoor.png" width="16" height="16"/>
+		<object name="redkey" image="redkey.png" width="16" height="16"/>
+		<object name="reddoor" image="redDoor.png" width="16" height="16"/>
+	</objects>
 	<layers>
-		<tiles name="spawn" gridSize="16" exportTileSize="true" exportTileIDs="true" />
-		<tiles name="floor" gridSize="16" exportTileSize="true" exportTileIDs="true" />
-		<tiles name="pickups" gridSize="16" exportTileSize="true" exportTileIDs="true" />
 		<tiles name="solids" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<tiles name="floor" gridSize="16" exportTileSize="true" exportTileIDs="true" />
+		<objects name="actors" gridSize="16"/>
 		<tiles name="foreground" gridSize="16" exportTileSize="true" exportTileIDs="true" />
 	</layers>
 </project>

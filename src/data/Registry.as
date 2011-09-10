@@ -4,8 +4,20 @@ package data
 	
 	public class Registry
 	{
-		//Player Image
+		//Images
 		[Embed(source = "/assets/player.png")] public static var ImgPlayer:Class;
+		[Embed(source = "../assets/enemy.png")] public static var ImgEnemy:Class;
+		[Embed(source = "../assets/coin.png")] public static var ImgCoin:Class;
+		
+		[Embed(source = "../assets/yellowkey.png")] public static var yellowKey:Class;
+		[Embed(source = "../assets/blueKey.png")] public static var blueKey:Class;
+		[Embed(source = "../assets/redKey.png")] public static var redKey:Class;
+		[Embed(source = "../assets/greenkey.png")] public static var greenKey:Class;
+		
+		[Embed(source = "../assets/yellowDoor.png")] public static var yellowDoor:Class;
+		[Embed(source = "../assets/blueDoor.png")] public static var blueDoor:Class;
+		[Embed(source = "../assets/redDoor.png")] public static var redDoor:Class;
+		[Embed(source = "../assets/greenDoor.png")] public static var greenDoor:Class;
 		
 		//Sounds
 		[Embed(source = "/assets/sounds/coin.mp3")] public static var coinSound:Class;
@@ -26,6 +38,13 @@ package data
 		// Reference to the player
 		public static var player:Player;
 		
+		//Enemy Spawn Tile
+		public static var eSpawnTile:uint = 35;
+		public static var agroDist:uint = 100;
+		
+		//Coin pull distance
+		public static var coinDist:uint = 30;
+		
 		// Speed the player moves
 		public static var moveSpeed:int = 100;
 		
@@ -44,8 +63,17 @@ package data
 		// Keeps track of the score for the whole game
 		public static var scoreThisGame:int = 0;
 		
-		//Used for checking if the player is colliding with something.
+		//Used for checking if the player is colliding with a tile
 		public static var collideCheck:Boolean;
+		
+		//Used for checking if the player is colliding with a solid
+		public static var collideSolids:Boolean;
+		
+		//Used for checking if the player is colliding with a trigger
+		public static var collideTrigger:Boolean;
+		
+		//Used for checking if the player is colliding with a coin
+		public static var coinCollide:Boolean;
 		
 		//Speed of the conveyor belts in the game.
 		public static var tramSpeed:int = 100;
@@ -54,6 +82,8 @@ package data
 		public static var correctDist:int = 10;
 		
 		//Tile Variables
+		
+		public static var haskeys:Array = [];
 		
 		//Tile Size
 		public static var tileSize:uint = 16;
@@ -98,6 +128,7 @@ package data
 		
 		//Spawn Tile
 		public static var spawnTile:uint = 20;
+		
 		
 		//Temp Tile
 		public static var tempTile:uint = 18;

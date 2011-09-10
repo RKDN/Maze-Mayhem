@@ -5,20 +5,24 @@ package data
 	
 	public class Enemy extends FlxSprite
 	{
-		[Embed(source = "../assets/player.png")] private var ImgEnemy:Class;
+		
 		
 		public function Enemy(x:Number,y:Number) 
 		{
-			loadGraphic(ImgEnemy, true, false);
-			
-			addAnimation("still", [0]);
 			super(x, y);
+			
+			loadGraphic(Registry.ImgEnemy, false, false);
 		}
 		
 		override public function update():void
         {
-			play("still");
-			FlxVelocity.moveTowardsObject(Registry.enemy, Registry.player, 60);
+			velocity.x = 0;
+			velocity.y = 0;
+			
+			if (Utils.getDistance(this, Registry.player) <= Registry.agroDist && !Registry.collideCheck) 
+			{
+				FlxVelocity.moveTowardsObject(this, Registry.player, 50);
+			}
 			super.update();
 		}
 		

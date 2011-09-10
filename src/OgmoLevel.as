@@ -17,6 +17,20 @@ package
 			height = xml.height;
 		}
 		
+		
+		public function isLayer(Layer:String):Boolean
+		{
+			var bool:Boolean;
+			if (Layer in xml) 
+			{
+				bool = true;
+			}
+			else
+			{
+				bool = false;
+			}
+			return bool;
+		}
 		/*
 		   Load a Tilemap type of layer
 		*/ 

@@ -11,7 +11,7 @@ package
  
         public function Main():void
         {
-            super(640,480,MenuState,1,30,30)
+            super(320,240,MenuState,2,30,30)
         }
     }
 }

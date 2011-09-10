@@ -13,20 +13,20 @@ package data
             //Adds some text to the screen
             var txt:FlxText
             txt = new FlxText(0, (FlxG.height / 2 - 100), FlxG.width, "Maze Mayhem")
-            txt.setFormat(null,48,0xFFFFFFFF,"center")
+            txt.setFormat(null,24,0xFFFFFFFF,"center")
             this.add(txt);
  
             txt = new FlxText(0, (FlxG.height / 2 - 40), FlxG.width, "by RKDN")
-            txt.setFormat(null,40,0xFFFFFFFF,"center")
+            txt.setFormat(null,20,0xFFFFFFFF,"center")
             this.add(txt);
  
             txt = new FlxText(0, FlxG.height - 35, FlxG.width, "PRESS X TO START")
-            txt.setFormat(null, 16, 0xFFFFFFFF, "center");
+            txt.setFormat(null, 8, 0xFFFFFFFF, "center");
             this.add(txt);
         }
  
         override public function update():void
-        {
+         {
             if (FlxG.keys.pressed("X")) // If the player presses the X key...
             {
                 // Flash white and fade over 3/4 of a second

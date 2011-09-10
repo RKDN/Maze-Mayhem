@@ -415,9 +415,6 @@
     <tile id="1" x="224" y="176"/>
     <tile id="7" x="304" y="112"/>
   </floor>
-  <pickups set="tiles" tileWidth="16" tileHeight="16">
-    <tile id="19" x="272" y="144"/>
-  </pickups>
   <solids set="tiles" tileWidth="16" tileHeight="16">
     <tile id="0" x="160" y="32"/>
     <tile id="0" x="224" y="48"/>
