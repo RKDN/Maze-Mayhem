@@ -11,6 +11,14 @@ package data
 		[Embed(source = "../assets/lava.png")] public static var ImgLava:Class;
 		[Embed(source = "../assets/switch.png")] public static var ImgButton:Class;
 		[Embed(source = "../assets/exit.png")] public static var ImgExit:Class;
+		[Embed(source = "../assets/beltRight.png")] public static var rightBelt:Class;
+		[Embed(source = "../assets/beltLeft.png")] public static var leftBelt:Class;
+		[Embed(source = "../assets/beltUp.png")] public static var upBelt:Class;
+		[Embed(source = "../assets/beltDown.png")] public static var downBelt:Class;
+		[Embed(source = "../assets/beltTL.png")] public static var tlBelt:Class;
+		[Embed(source = "../assets/beltBL.png")] public static var blBelt:Class;
+		[Embed(source = "../assets/beltTR.png")] public static var trBelt:Class;
+		[Embed(source = "../assets/beltBR.png")] public static var brBelt:Class;
 		
 		[Embed(source = "../assets/yellowkey.png")] public static var yellowKey:Class;
 		[Embed(source = "../assets/blueKey.png")] public static var blueKey:Class;
@@ -71,7 +79,7 @@ package data
 		public static var collideTrigger:Boolean;
 		
 		//Speed of the conveyor belts in the game.
-		public static var tramSpeed:int = 100;
+		public static var tramSpeed:int = 1000;
 		
 		//Used for toggle switches.
 		public static var toggled:Boolean = false;

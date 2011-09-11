@@ -132,6 +132,13 @@ package
 				add(exit);
 			}
 			
+			//Add belt tiles
+			for each(p in level.xml.actors.belt)
+			{
+				var belt:Belt = new Belt(p.@x, p.@y,p.@type);
+				add(belt);
+			}
+			
 			for each(p in level.xml.actors.enemy)
 			{
 				//Create the enemies

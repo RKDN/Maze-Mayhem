@@ -19,7 +19,7 @@ package data
 			velocity.x = 0;
 			velocity.y = 0;
 			
-			if (FlxG.overlap(this, Registry.player) && Registry.toggled == false)
+			if (overlaps(Registry.player) && Registry.toggled == false)
 			{
 				if (facing == FlxObject.LEFT)
 				{
@@ -66,7 +66,7 @@ package data
 					Registry.toggled = true;
 			}
 			
-			if(!FlxG.overlap(this, Registry.player))
+			if(!overlaps(Registry.player))
 			{
 				Registry.toggled = false;
 			}

@@ -15,36 +15,86 @@
 		
 		<object name="coin" image="ogmocoin.png" width="8" height="8"/>
 		
-		<object name="key" image="key.png" width="16" height="16">
+		<object name="key" image="yellowKey.png" width="16" height="16">
 			<values>
 				<string name="color" default="yellow" />
 			</values>
 		</object>
+		<object name="key" image="blueKey.png" width="16" height="16">
+			<values>
+				<string name="color" default="blue" />
+			</values>
+		</object>
+		<object name="key" image="greenKey.png" width="16" height="16">
+			<values>
+				<string name="color" default="green" />
+			</values>
+		</object>
+		<object name="key" image="redKey.png" width="16" height="16">
+			<values>
+				<string name="color" default="red" />
+			</values>
+		</object>
 		
-		<object name="door" image="door.png" width="16" height="16">
+		<object name="door" image="yellowDoor.png" width="16" height="16">
 			<values>
 				<string name="color" default="yellow" />
+			</values>
+		</object>
+		<object name="door" image="blueDoor.png" width="16" height="16">
+			<values>
+				<string name="color" default="blue" />
+			</values>
+		</object>
+		<object name="door" image="greenDoor.png" width="16" height="16">
+			<values>
+				<string name="color" default="green" />
+			</values>
+		</object>
+		<object name="door" image="redDoor.png" width="16" height="16">
+			<values>
+				<string name="color" default="red" />
 			</values>
 		</object>
 		
 		<object name="belt" image="beltRight.png" width="16" height="16">
 			<values>
-				<string name="color" default="right" />
+				<string name="type" default="right" />
 			</values>
 		</object>
 		<object name="belt" image="beltLeft.png" width="16" height="16">
 			<values>
-				<string name="color" default="left" />
+				<string name="type" default="left" />
 			</values>
 		</object>
 		<object name="belt" image="beltUp.png" width="16" height="16">
 			<values>
-				<string name="color" default="up" />
+				<string name="type" default="up" />
 			</values>
 		</object>
 		<object name="belt" image="beltDown.png" width="16" height="16">
 			<values>
-				<string name="color" default="down" />
+				<string name="type" default="down" />
+			</values>
+		</object>
+		<object name="belt" image="beltTR.png" width="16" height="16">
+			<values>
+				<string name="type" default="tr" />
+			</values>
+		</object>
+		<object name="belt" image="beltTL.png" width="16" height="16">
+			<values>
+				<string name="type" default="tl" />
+			</values>
+		</object>
+		<object name="belt" image="beltBR.png" width="16" height="16">
+			<values>
+				<string name="type" default="br" />
+			</values>
+		</object>
+		<object name="belt" image="beltBL.png" width="16" height="16">
+			<values>
+				<string name="type" default="bl" />
 			</values>
 		</object>
 		

@@ -31,7 +31,7 @@ package data
 			{
 				Registry.scoreThisLevel += 1;
 				FlxG.play(Registry.coinSound);
-				this.exists = false;
+				exists = false;
 			}
 			super.update();
 			

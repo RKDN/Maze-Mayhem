@@ -15,6 +15,10 @@ package data
 		
 		override public function update():void
         {
+			
+			velocity.x = 0;
+			velocity.y = 0;
+			
 			if (Utils.getDistance(this, Registry.player) <= Registry.agroDist && !FlxG.overlap(this,Registry.player)) 
 			{
 				FlxVelocity.moveTowardsObject(this, Registry.player, 50);

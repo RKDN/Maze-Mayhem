@@ -41,6 +41,9 @@ package data
 
 			super.update();
 			
+			velocity.x = 0;
+			velocity.y = 0;
+			
 			//Global Timer for Player
 			counter += FlxG.elapsed;
 			
@@ -97,12 +100,6 @@ package data
                 velocity.y = Registry.moveSpeed;
 				play("down");
             }
-			else
-			{
-				play("still");
-				velocity.x = 0;
-				velocity.y = 0;
-			}
 			
 			//Reset the level by pressing R
 			if(FlxG.keys.R)
