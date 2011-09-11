@@ -3,29 +3,25 @@ package
 	import mx.core.FlexSprite;
     import org.flixel.*;
 	import data.*;
-	import data.doors.*
-	import data.keys.*
  
     public class PlayState extends FlxState
     {
 		
 		//Map layers
-		public static var spawn:FlxTilemap;
-		public static var pickups:FlxTilemap;
 		public static var floor:FlxTilemap;
 		public static var solids:FlxTilemap;
 		public static var foreground:FlxTilemap;
 		
 		//Score
-		public static var score:FlxText;
-		public static var time:FlxText;
+		public var score:FlxText;
+		public var time:FlxText;
 		
 		//Number of coins in the level.
-		public static var coinCount:uint = 0;
+		public var coinCount:uint = 0;
 		
-		public static var solid:FlxGroup;
-		public static var pickup:FlxGroup;
-		public static var triggers:FlxGroup;
+		public var solid:FlxGroup;
+		public var pickup:FlxGroup;
+		public var triggers:FlxGroup;
 			
         override public function create():void
         {	
@@ -56,8 +52,6 @@ package
 			super.update();
 			
 			//Set our global variable for collision checks.
-			Registry.collideCheck = FlxG.collide(solid, solids);
-			Registry.coinCollide = FlxG.collide(Registry.player, pickup);
 			Registry.collideSolids = FlxG.collide(solid, solid);
 			Registry.collideTrigger = FlxG.collide(solid, triggers);
 			
@@ -89,6 +83,54 @@ package
 			
 			add(floor);
 			add(solids);
+			solid.add(solids);
+			
+			//Make keys
+			var key:Key;
+			for each(p in level.xml.actors.key)
+			{
+				key = new Key(p.@x, p.@y,p.@color);
+				add(key);
+			}
+			
+			//Make Doors
+			var door:Door;
+			for each(p in level.xml.actors.door)
+			{
+				door = new Door(p.@x, p.@y,p.@color);
+				add(door);
+				triggers.add(door);
+			}
+			
+			//Add coins to the level
+			for each(p in level.xml.actors.coin)
+			{
+				//Create coins
+				var coin:Coin = new Coin(p.@x, p.@y);
+				add(coin);
+				coinCount += 1;
+			}
+			
+			//Add lava tiles.
+			for each(p in level.xml.actors.lava)
+			{
+				var lava:Lava = new Lava(p.@x, p.@y);
+				add(lava);
+			}
+			
+			//Add switch tiles
+			for each(p in level.xml.actors.button)
+			{
+				var button:Button = new Button(p.@x, p.@y);
+				add(button);
+			}
+			
+			//Add exit tile
+			for each(p in level.xml.actors.exit)
+			{
+				var exit:Exit = new Exit(p.@x, p.@y);
+				add(exit);
+			}
 			
 			for each(p in level.xml.actors.enemy)
 			{
@@ -98,64 +140,6 @@ package
 				solid.add(enemy);
 			}
 			
-			//Make keys
-			var key:Key;
-			for each(p in level.xml.actors.yellowkey)
-			{
-				//Create yellowKey
-				key = new Key(p.@x, p.@y,"yellow");
-				add(key);
-			}
-			for each(p in level.xml.actors.bluekey)
-			{
-				//Create blueKey
-				key = new Key(p.@x, p.@y,"blue");
-				add(key);
-			}
-			for each(p in level.xml.actors.greenkey)
-			{
-				//Create greenKey
-				key = new Key(p.@x, p.@y,"green");
-				add(key);
-			}
-			for each(p in level.xml.actors.redkey)
-			{
-				//Create redKey
-				key = new Key(p.@x, p.@y,"red");
-				add(key);
-			}
-			
-			//Make Doors
-			var door:Door;
-			for each(p in level.xml.actors.yellowdoor)
-			{
-				//Create yellowDoor
-				door = new Door(p.@x, p.@y,"yellow");
-				add(door);
-				triggers.add(door);
-			}
-			for each(p in level.xml.actors.bluedoor)
-			{
-				//Create blueDoor
-				door = new Door(p.@x, p.@y,"blue");
-				add(door);
-				triggers.add(door);
-			}
-			for each(p in level.xml.actors.greendoor)
-			{
-				//Create greenDoor
-				door = new Door(p.@x, p.@y,"green");
-				add(door);
-				triggers.add(door);
-			}
-			for each(p in level.xml.actors.reddoor)
-			{
-				//Create redDoor
-				door = new Door(p.@x, p.@y,"red");
-				add(door);
-				triggers.add(door);
-			}
-			
 			//Add the player to the screen.
 			for each(p in level.xml.actors.spawn)
 			{
@@ -163,14 +147,6 @@ package
 				Registry.player = new Player(p.@x, p.@y);
 				add(Registry.player);
 				solid.add(Registry.player)
-			}
-			
-			for each(p in level.xml.actors.coin)
-			{
-				//Create coins
-				var coin:Coin = new Coin(p.@x, p.@y);
-				add(coin);
-				coinCount += 1;
 			}
 			
 			//add the foreground last so it is on top

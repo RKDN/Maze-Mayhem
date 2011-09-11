@@ -1,8 +1,7 @@
-package data.keys 
+package data 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-	import data.*
 	
 	public class Key extends FlxSprite
 	{

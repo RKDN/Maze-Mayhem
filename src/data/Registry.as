@@ -8,6 +8,9 @@ package data
 		[Embed(source = "/assets/player.png")] public static var ImgPlayer:Class;
 		[Embed(source = "../assets/enemy.png")] public static var ImgEnemy:Class;
 		[Embed(source = "../assets/coin.png")] public static var ImgCoin:Class;
+		[Embed(source = "../assets/lava.png")] public static var ImgLava:Class;
+		[Embed(source = "../assets/switch.png")] public static var ImgButton:Class;
+		[Embed(source = "../assets/exit.png")] public static var ImgExit:Class;
 		
 		[Embed(source = "../assets/yellowkey.png")] public static var yellowKey:Class;
 		[Embed(source = "../assets/blueKey.png")] public static var blueKey:Class;
@@ -27,7 +30,7 @@ package data
 		
 		//Maps
 		[Embed(source = '/assets/levels/test.oel', mimeType = 'application/octet-stream')] public static var Level1:Class;
-		[Embed(source = '/assets/levels/map2.oel', mimeType = 'application/octet-stream')] public static var Level2:Class;
+		[Embed(source = '/assets/levels/test.oel', mimeType = 'application/octet-stream')] public static var Level2:Class;
 		
 		//Music
 		[Embed(source = "/assets/sounds/Cipher.mp3")] public static var music:Class;
@@ -63,20 +66,15 @@ package data
 		// Keeps track of the score for the whole game
 		public static var scoreThisGame:int = 0;
 		
-		//Used for checking if the player is colliding with a tile
-		public static var collideCheck:Boolean;
-		
-		//Used for checking if the player is colliding with a solid
+		//Used for checking if the player is colliding
 		public static var collideSolids:Boolean;
-		
-		//Used for checking if the player is colliding with a trigger
 		public static var collideTrigger:Boolean;
-		
-		//Used for checking if the player is colliding with a coin
-		public static var coinCollide:Boolean;
 		
 		//Speed of the conveyor belts in the game.
 		public static var tramSpeed:int = 100;
+		
+		//Used for toggle switches.
+		public static var toggled:Boolean = false;
 		
 		//Used for keeping player on belts around corners.
 		public static var correctDist:int = 10;
@@ -101,43 +99,16 @@ package data
 		public static var tramTRrev:uint = 31;
 		public static var tramBLrev:uint = 33;
 		public static var tramBRrev:uint = 34;
-		public static var tramSwitch:uint = 8;
-		public static var tramSwitchrev:uint = 23;
 		
-		//Keys
-		public static var keyY:uint = 10;
-		public static var keyB:uint = 11;
-		public static var keyR:uint = 12;
-		public static var keyG:uint = 13;
-		public static var keyGone:uint = 21;
-		
-		//Doors
-		public static var doorY:uint = 14;
-		public static var doorB:uint = 15;
-		public static var doorR:uint = 16;
-		public static var doorG:uint = 17;
-		
-		//Coin Tile
-		public static var coinTile:uint = 19;
 		
 		//Ice Tile
-		public static var iceTile:uint = 22;
-		
-		//Lava Tile
-		public static var lavaTile:uint = 7;
-		
-		//Spawn Tile
-		public static var spawnTile:uint = 20;
-		
+		public static var iceTile:uint = 22;		
 		
 		//Temp Tile
 		public static var tempTile:uint = 18;
 		
 		//Blank Tile
 		public static var blankTile:uint = 0;
-		
-		//Goal Tile
-		public static var goalTile:uint = 2;
 		
 		//Win variable
 		public static var hasWon:Boolean = false;

@@ -22,7 +22,6 @@
     <tile id="9" x="576" y="368"/>
     <tile id="9" x="432" y="352"/>
     <tile id="9" x="576" y="352"/>
-    <tile id="8" x="416" y="368"/>
     <tile id="25" x="432" y="288"/>
     <tile id="25" x="448" y="288"/>
     <tile id="25" x="464" y="288"/>
@@ -731,7 +730,6 @@
     <tile id="0" x="464" y="288"/>
     <tile id="0" x="448" y="288"/>
     <tile id="0" x="432" y="288"/>
-    <tile id="0" x="416" y="368"/>
     <tile id="0" x="432" y="352"/>
     <tile id="0" x="576" y="352"/>
     <tile id="0" x="304" y="304"/>
@@ -852,6 +850,7 @@
     <tile id="1" x="384" y="432"/>
     <tile id="1" x="384" y="448"/>
     <tile id="1" x="400" y="448"/>
+    <tile id="1" x="416" y="368"/>
   </floor>
   <actors>
     <spawn x="416" y="368"/>
@@ -863,14 +862,14 @@
     <coin x="512" y="496"/>
     <coin x="528" y="496"/>
     <coin x="432" y="496"/>
-    <yellowdoor x="336" y="400"/>
-    <greendoor x="336" y="416"/>
-    <bluedoor x="336" y="432"/>
-    <reddoor x="336" y="448"/>
-    <yellowkey x="368" y="400"/>
-    <bluekey x="368" y="448"/>
-    <redkey x="304" y="400"/>
-    <greenkey x="304" y="448"/>
+    <lava x="336" y="496"/>
+    <lava x="336" y="512"/>
+    <lava x="320" y="512"/>
+    <lava x="320" y="496"/>
+    <door x="336" y="464" color="yellow"/>
+    <key x="352" y="432" color="yellow"/>
+    <exit x="384" y="496"/>
+    <button x="416" y="416"/>
   </actors>
   <foreground set="tiles" tileWidth="16" tileHeight="16">
     <tile id="26" x="432" y="272"/>

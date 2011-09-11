@@ -1,8 +1,7 @@
-package data.doors 
+package data 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-	import data.*
 	
 	public class Door extends FlxSprite
 	{

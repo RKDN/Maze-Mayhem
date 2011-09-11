@@ -45,75 +45,29 @@ package
 			}
 		}
 		
-		public static function removeTile(layer:String,x:uint,y:uint):void
-		{
-			var location:uint;
-			
-			switch (layer)
-			{
-			case "floor":
-			location = Math.floor(x / Registry.tileSize) + Math.floor(y / Registry.tileSize) * PlayState.floor.widthInTiles;
-			PlayState.floor.setTileByIndex(location,Registry.blankTile)
-			break;
-			case "pickups":
-			location = Math.floor(x / Registry.tileSize) + Math.floor(y / Registry.tileSize) * PlayState.pickups.widthInTiles;
-			PlayState.pickups.setTileByIndex(location,Registry.blankTile)
-			break;
-			}
-		}
-		
-		public static function ontile(layer:String,x:uint,y:uint,width:uint,height:uint):uint
+		public static function ontile(x:uint,y:uint,width:uint,height:uint):uint
 		{
 			var ontile:uint;
-			
-			switch(layer)
-			{
-				case "floor":
-					if(FlxG.keys.UP)
-					{
-						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
-					}
-					if(FlxG.keys.DOWN)
-					{
-						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
-					}
-					if(FlxG.keys.LEFT)
-					{
-						ontile = PlayState.floor.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-					if(FlxG.keys.RIGHT)
-					{
-						ontile = PlayState.floor.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-					else
-					{
-						ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-				break;
-				
-				case "pickups":
-					if(FlxG.keys.UP)
-					{
-						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
-					}
-					if(FlxG.keys.DOWN)
-					{
-						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
-					}
-					if(FlxG.keys.LEFT)
-					{
-						ontile = PlayState.pickups.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-					if(FlxG.keys.RIGHT)
-					{
-						ontile = PlayState.pickups.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-					else
-					{
-						ontile = PlayState.pickups.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-					}
-				break;
-			}			
+				if(FlxG.keys.UP)
+				{
+					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
+				}
+				if(FlxG.keys.DOWN)
+				{
+					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
+				}
+				if(FlxG.keys.LEFT)
+				{
+					ontile = PlayState.floor.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+				}
+				if(FlxG.keys.RIGHT)
+				{
+					ontile = PlayState.floor.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+				}
+				else
+				{
+					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
+				}
 			return ontile;
 		}
 		

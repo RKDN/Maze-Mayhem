@@ -38,22 +38,16 @@ package data
  
         override public function update():void
         {
+
 			super.update();
 			
 			//Global Timer for Player
 			counter += FlxG.elapsed;
-
-			//Stop player from sliding unless they are on an ice tile.
-            if (ontile != Registry.iceTile)
-			{
-				velocity.x = 0;
-				velocity.y = 0;
-			}
 			
 			//execute all the things!
 			controls();
 			screenCollide();
-			tilestuff();
+			belts();
 			antistick();
 			
 			
@@ -106,6 +100,8 @@ package data
 			else
 			{
 				play("still");
+				velocity.x = 0;
+				velocity.y = 0;
 			}
 			
 			//Reset the level by pressing R
@@ -117,15 +113,14 @@ package data
 				//Reset stuff
 				Registry.scoreThisLevel = 0;
 				Registry.timeThisLevel = 0;
-				Registry.haskeys
+				Registry.haskeys = [];
             }
 		}
 		
-		public function tilestuff():void
+		public function belts():void
 		{	
 			//Find out what tile the player is standing on.
-			ontile = Utils.ontile("floor", x, y, width, height);
-			
+			ontile = Utils.ontile(x, y, width, height);
 			
 			
 			//Conveyor Belts
@@ -200,110 +195,12 @@ package data
 				velocity.x = -Registry.tramSpeed;
 				FlxG.play(Registry.tramSound);
 			}
-			
-			
-			
-			//Dangerous lava!
-			if (ontile == Registry.lavaTile)
-			{
-				Registry.scoreThisGame += Registry.scoreThisLevel;
-				FlxG.play(Registry.hitSound);
-				FlxG.switchState(new scoreBoard);
-				Registry.hasWon = false;
-			}
-			
-			//Win Tile
-			if (ontile == Registry.goalTile)
-			{
-				
-				//Set some variables
-				Registry.currentLevel += 1;
-				Registry.scoreThisGame += Registry.scoreThisLevel;
-				Registry.scoreThisLevel = 0;
-				Registry.hasWon = true;
-				
-				//Swap to the scoreboard state.
-				FlxG.switchState(new scoreBoard);
-			}
-			
-			//When we are on our yellow key (Registry.keyY) we remove the coresponding doors.
-			if (ontile == Registry.keyY)
-			{
-				Utils.replaceTiles("solids", Registry.doorY, Registry.blankTile);
-				Utils.replaceTiles("floor", Registry.keyY, Registry.keyGone);
-			}
-			//When we are on our green key (Registry.keyG) we remove the coresponding doors.
-			if (ontile == Registry.keyG)
-			{
-				Utils.replaceTiles("solids", Registry.doorG, Registry.blankTile)
-				Utils.replaceTiles("floor", Registry.keyG, Registry.keyGone);
-				FlxG.play(Registry.switchSound);
-			}
-			//When we are on our blue key (Registry.keyB) we remove the coresponding doors.
-			if (ontile == Registry.keyB)
-			{
-				Utils.replaceTiles("solids", Registry.doorB, Registry.blankTile);
-				Utils.replaceTiles("floor", Registry.keyB, Registry.keyGone);
-				FlxG.play(Registry.switchSound);
-			}
-			//When we are on our orange key (Registry.keyR) we remove the coresponding doors.
-			if (ontile == Registry.keyR)
-			{
-				Utils.replaceTiles("solids", Registry.doorR, Registry.blankTile);
-				Utils.replaceTiles("floor", Registry.keyR, Registry.keyGone);
-				FlxG.play(Registry.switchSound);
-			}
-			
-			//Tram toggle switch
-			if ((ontile == Registry.tramSwitch || ontile == Registry.tramSwitchrev) && counter > 1)
-			{
-					
-					//Swap left and right tiles
-					Utils.replaceTiles("floor", Registry.tramRight, Registry.tempTile)
-					Utils.replaceTiles("floor", Registry.tramLeft, Registry.tramRight);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramLeft);
-					
-					//Swap up and down tiles
-					Utils.replaceTiles("floor", Registry.tramUp, Registry.tempTile);
-					Utils.replaceTiles("floor", Registry.tramDown, Registry.tramUp);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramDown);
-					
-					//Swap bottom right tiles
-					Utils.replaceTiles("floor", Registry.tramBR, Registry.tempTile);
-					Utils.replaceTiles("floor", Registry.tramBRrev, Registry.tramBR);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramBRrev);
-					
-					//Swap bottom left tiles
-					Utils.replaceTiles("floor", Registry.tramBL, Registry.tempTile);
-					Utils.replaceTiles("floor", Registry.tramBLrev, Registry.tramBL);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramBLrev);
-					
-					//Swap top right tiles.
-					Utils.replaceTiles("floor", Registry.tramTR, Registry.tempTile);
-					Utils.replaceTiles("floor", Registry.tramTRrev, Registry.tramTR);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramTRrev);
-					
-					//Swap top left tiles
-					Utils.replaceTiles("floor", Registry.tramTL, Registry.tempTile);
-					Utils.replaceTiles("floor", Registry.tramTLrev, Registry.tramTL);
-					Utils.replaceTiles("floor", Registry.tempTile, Registry.tramTLrev);
-					
-					//Swap switch tile.
-					if(ontile == Registry.tramSwitch) Utils.replaceTiles("floor", Registry.tramSwitch, Registry.tramSwitchrev);
-					if (ontile == Registry.tramSwitchrev) Utils.replaceTiles("floor", Registry.tramSwitchrev, Registry.tramSwitch);
-					
-					//Play switch sound
-					FlxG.play(Registry.switchSound);
-					
-					//reset time the player is on the tile.
-					counter = 0;
-			}
 		}
 		
 		//prevents the player from sticking on edges of tiles.
 		public function antistick():void
 		{			
-			if (FlxG.keys.LEFT && Registry.collideCheck)
+			if (FlxG.keys.LEFT && Registry.collideSolids)
 			{
 				if (Utils.checkTopLeft() == 0)
 				{
@@ -314,7 +211,7 @@ package data
 					velocity.y = Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.UP && Registry.collideCheck)
+			if (FlxG.keys.UP && Registry.collideSolids)
 			{
 				if (Utils.checkTopLeft() == 0)
 				{
@@ -325,7 +222,7 @@ package data
 					velocity.x = Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.DOWN && Registry.collideCheck)
+			if (FlxG.keys.DOWN && Registry.collideSolids)
 			{
 				if (Utils.checkBotRight() == 0)
 				{
@@ -336,7 +233,7 @@ package data
 					velocity.x = -Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.RIGHT && Registry.collideCheck)
+			if (FlxG.keys.RIGHT && Registry.collideSolids)
 			{
 				if (Utils.checkTopRight() == 0)
 				{
