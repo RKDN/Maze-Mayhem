@@ -52,7 +52,6 @@ package data
 			//execute all the things!
 			controls();
 			screenCollide();
-			//belts();
 			antistick();
 			
 			
@@ -118,86 +117,6 @@ package data
 				Registry.timeThisLevel = 0;
 				Registry.haskeys = [];
             }
-		}
-		
-		public function belts():void
-		{	
-			//Find out what tile the player is standing on.
-			ontile = Utils.ontile(x, y, width, height);
-			
-			
-			//Conveyor Belts
-			if (ontile == Registry.tramRight)
-			{
-				velocity.x = Registry.moveSpeed;
-				play("rightidle");
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramLeft)
-			{
-				velocity.x = -Registry.moveSpeed;
-				play("leftidle");
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramUp)
-			{
-				velocity.y = -Registry.moveSpeed;
-				play("upidle");
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramDown)
-			{
-				velocity.y = Registry.moveSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramBR)
-			{
-				velocity.x = Registry.tramSpeed/2;
-				velocity.y = -Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramTR)
-			{
-				velocity.y = -Registry.tramSpeed/2;
-				velocity.x = -Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramTL)
-			{
-				velocity.x = -Registry.tramSpeed/2;
-				velocity.y = Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramBL)
-			{
-				velocity.y = Registry.tramSpeed/2;
-				velocity.x = Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramTRrev)
-			{
-				velocity.x = Registry.tramSpeed/2;
-				velocity.y = Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramTLrev)
-			{
-				velocity.y = -Registry.tramSpeed/2;
-				velocity.x = Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramBLrev)
-			{
-				velocity.x = -Registry.tramSpeed/2;
-				velocity.y = -Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
-			if (ontile == Registry.tramBRrev)
-			{
-				velocity.y = Registry.tramSpeed/2;
-				velocity.x = -Registry.tramSpeed;
-				FlxG.play(Registry.tramSound);
-			}
 		}
 		
 		//prevents the player from sticking on edges of tiles.

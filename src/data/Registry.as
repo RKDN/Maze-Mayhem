@@ -11,10 +11,7 @@ package data
 		[Embed(source = "../assets/lava.png")] public static var ImgLava:Class;
 		[Embed(source = "../assets/switch.png")] public static var ImgButton:Class;
 		[Embed(source = "../assets/exit.png")] public static var ImgExit:Class;
-		[Embed(source = "../assets/beltRight.png")] public static var rightBelt:Class;
-		[Embed(source = "../assets/beltLeft.png")] public static var leftBelt:Class;
-		[Embed(source = "../assets/beltUp.png")] public static var upBelt:Class;
-		[Embed(source = "../assets/beltDown.png")] public static var downBelt:Class;
+		[Embed(source = "../assets/beltLRUD.png")] public static var lrudBelt:Class;
 		[Embed(source = "../assets/beltTL.png")] public static var tlBelt:Class;
 		[Embed(source = "../assets/beltBL.png")] public static var blBelt:Class;
 		[Embed(source = "../assets/beltTR.png")] public static var trBelt:Class;
@@ -93,20 +90,8 @@ package data
 		//Tile Size
 		public static var tileSize:uint = 16;
 		
-		//Tram Tiles
-		public static var tramLeft:uint = 4;
-		public static var tramRight:uint = 3;
-		public static var tramUp:uint = 5;
-		public static var tramDown:uint = 6;
-		public static var tramTL:uint = 29;
-		public static var tramTR:uint = 28;
-		public static var tramBL:uint = 30;
-		public static var tramBR:uint = 27;
-		public static var tramTLrev:uint = 32;
-		public static var tramTRrev:uint = 31;
-		public static var tramBLrev:uint = 33;
-		public static var tramBRrev:uint = 34;
-		
+		//Is belt going forward?
+		public static var beltForward:Boolean = true;
 		
 		//Ice Tile
 		public static var iceTile:uint = 22;		

@@ -45,32 +45,6 @@ package
 			}
 		}
 		
-		public static function ontile(x:uint,y:uint,width:uint,height:uint):uint
-		{
-			var ontile:uint;
-				if(FlxG.keys.UP)
-				{
-					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y / Registry.tileSize));
-				}
-				if(FlxG.keys.DOWN)
-				{
-					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor(y+height) / Registry.tileSize);
-				}
-				if(FlxG.keys.LEFT)
-				{
-					ontile = PlayState.floor.getTile(Math.floor(x / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-				}
-				if(FlxG.keys.RIGHT)
-				{
-					ontile = PlayState.floor.getTile(Math.floor((x + width) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-				}
-				else
-				{
-					ontile = PlayState.floor.getTile(Math.floor((x + (width/2)) / Registry.tileSize), Math.floor((y + (height/2)) / Registry.tileSize));
-				}
-			return ontile;
-		}
-		
 		//Some usefull checking functions.
 		public static function checkTopLeft():uint
 		{
