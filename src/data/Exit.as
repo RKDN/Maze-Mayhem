@@ -19,7 +19,7 @@ package data
 			velocity.x = 0;
 			velocity.y = 0;
 			
-			if (FlxG.overlap(this,Registry.player))
+			if (overlaps(Registry.player))
 			{
 				//Set some variables
 				Registry.currentLevel += 1;

@@ -24,7 +24,7 @@ package data
 			velocity.x = 0;
 			velocity.y = 0;
 			
-			if (Registry.collideTrigger)
+			if (isTouching(FlxObject.ANY))
 			{
 				for (var i:Number = 0; i < Registry.haskeys.length; i++)
 				{

@@ -28,7 +28,7 @@ package data
 				FlxVelocity.moveTowardsObject(this, Registry.player, 30);
 			}
 			
-			if (FlxG.overlap(this,Registry.player))
+			if (overlaps(Registry.player))
 			{
 				Registry.haskeys.push(keyColor);
 				FlxG.play(Registry.switchSound);

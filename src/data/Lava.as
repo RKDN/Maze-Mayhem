@@ -22,7 +22,7 @@ package data
 			
 			play("lava")
 			
-			if (FlxG.overlap(this,Registry.player))
+			if (overlaps(Registry.player))
 			{
 				Registry.scoreThisGame += Registry.scoreThisLevel;
 				FlxG.play(Registry.hitSound);

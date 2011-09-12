@@ -6,12 +6,10 @@ package data
 	public class Belt extends FlxSprite
 	{
 		private var beltType:String;
-		
 		public function Belt(x:Number,y:Number,type:String) 
 		{
 			super(x, y);
 			beltType = type;
-			trace(beltType)
 			if (beltType == "right") loadGraphic(Registry.rightBelt, false);
 			if (beltType == "left") loadGraphic(Registry.leftBelt, false);
 			if (beltType == "up") loadGraphic(Registry.upBelt, false);
@@ -20,21 +18,41 @@ package data
 			if (beltType == "br") loadGraphic(Registry.brBelt, false);
 			if (beltType == "tl") loadGraphic(Registry.tlBelt, false);
 			if (beltType == "bl") loadGraphic(Registry.blBelt, false);
-			
-			immovable = true;
 		}
-		
+
+		//TODO: change this to use paths
 		override public function update():void
-        {			
-			if (FlxG.overlap(this,Registry.player))
-			{
-				if (beltType == "right") Registry.player.acceleration.x = Registry.tramSpeed;
-				if (beltType == "left") Registry.player.acceleration.x = -Registry.tramSpeed;
-				if (beltType == "up") Registry.player.acceleration.y = -Registry.tramSpeed;
-				if (beltType == "down") Registry.player.acceleration.y = Registry.tramSpeed;
-			}
+        {
 			super.update();
 			
+			if (FlxG.overlap(this,Registry.player))
+			{
+				if (beltType == "right") Registry.player.velocity.x = Registry.tramSpeed;
+				if (beltType == "left") Registry.player.velocity.x = -Registry.tramSpeed;
+				if (beltType == "up") Registry.player.velocity.y = -Registry.tramSpeed;
+				if (beltType == "down") Registry.player.velocity.y = Registry.tramSpeed;
+				
+				if (beltType == "tr")
+				{
+					Registry.player.velocity.x = Registry.tramSpeed / 6;
+					Registry.player.velocity.y = Registry.tramSpeed;
+				}
+				if (beltType == "br")
+				{
+					Registry.player.velocity.x = -Registry.tramSpeed;
+					Registry.player.velocity.y = Registry.tramSpeed / 6;
+				}
+				if (beltType == "tl")
+				{
+					Registry.player.velocity.x = Registry.tramSpeed / 6;
+					Registry.player.velocity.y = -Registry.tramSpeed;
+				}
+				if (beltType == "bl")
+				{
+					Registry.player.velocity.x = -Registry.tramSpeed;
+					Registry.player.velocity.y = -Registry.tramSpeed / 6;
+				}
+			}	
 		}
 		
 	}

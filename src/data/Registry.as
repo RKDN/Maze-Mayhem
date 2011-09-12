@@ -76,10 +76,9 @@ package data
 		
 		//Used for checking if the player is colliding
 		public static var collideSolids:Boolean;
-		public static var collideTrigger:Boolean;
 		
 		//Speed of the conveyor belts in the game.
-		public static var tramSpeed:int = 1000;
+		public static var tramSpeed:int = 100;
 		
 		//Used for toggle switches.
 		public static var toggled:Boolean = false;
@@ -120,6 +119,10 @@ package data
 		
 		//Win variable
 		public static var hasWon:Boolean = false;
+		
+		//Groups
+		public static var solid:FlxGroup;
+		public static var belts:FlxGroup;
 	
 	}
 }

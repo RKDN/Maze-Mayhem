@@ -38,11 +38,13 @@ package data
  
         override public function update():void
         {
-
 			super.update();
 			
-			velocity.x = 0;
-			velocity.y = 0;
+			if (!FlxG.overlap(this,Registry.belts))
+			{
+				velocity.x = 0;
+				velocity.y = 0;
+			}
 			
 			//Global Timer for Player
 			counter += FlxG.elapsed;
@@ -50,7 +52,7 @@ package data
 			//execute all the things!
 			controls();
 			screenCollide();
-			belts();
+			//belts();
 			antistick();
 			
 			
@@ -100,6 +102,10 @@ package data
                 velocity.y = Registry.moveSpeed;
 				play("down");
             }
+			else 
+			{
+				play("still");
+			}
 			
 			//Reset the level by pressing R
 			if(FlxG.keys.R)

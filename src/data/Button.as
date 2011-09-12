@@ -5,7 +5,7 @@ package data
 	
 	public class Button extends FlxSprite
 	{
-		
+		private var toggled:Boolean = false;
 		public function Button(x:Number,y:Number) 
 		{
 			super(x, y);
@@ -15,11 +15,8 @@ package data
 		}
 		
 		override public function update():void
-        {
-			velocity.x = 0;
-			velocity.y = 0;
-			
-			if (overlaps(Registry.player) && Registry.toggled == false)
+        {	
+			if (overlaps(Registry.player) && toggled == false)
 			{
 				if (facing == FlxObject.LEFT)
 				{
@@ -62,13 +59,11 @@ package data
 					
 					//Play switch sound
 					FlxG.play(Registry.switchSound);
-					
-					Registry.toggled = true;
+					toggled = true;
 			}
-			
-			if(!overlaps(Registry.player))
+			if (!overlaps(Registry.player))
 			{
-				Registry.toggled = false;
+				toggled = false;
 			}
 			super.update();
 			

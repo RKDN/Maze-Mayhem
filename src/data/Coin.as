@@ -27,7 +27,7 @@ package data
 				FlxVelocity.moveTowardsObject(this, Registry.player, 30);
 			}
 			
-			if (FlxG.overlap(this,Registry.player))
+			if (overlaps(Registry.player))
 			{
 				Registry.scoreThisLevel += 1;
 				FlxG.play(Registry.coinSound);

@@ -19,16 +19,13 @@ package
 		//Number of coins in the level.
 		public var coinCount:uint = 0;
 		
-		public var solid:FlxGroup;
-		public var pickup:FlxGroup;
-		public var triggers:FlxGroup;
+		
 			
         override public function create():void
         {	
 			
-			solid = new FlxGroup();
-			pickup = new FlxGroup();
-			triggers = new FlxGroup();
+			Registry.solid = new FlxGroup();
+			Registry.belts = new FlxGroup();
 			
 			//load the map
 			loadMap();
@@ -52,8 +49,7 @@ package
 			super.update();
 			
 			//Set our global variable for collision checks.
-			Registry.collideSolids = FlxG.collide(solid, solid);
-			Registry.collideTrigger = FlxG.collide(solid, triggers);
+			Registry.collideSolids = FlxG.collide(Registry.solid, Registry.solid);  
 			
 			
 			//Keep track of how long the player has been on the level.
@@ -83,7 +79,7 @@ package
 			
 			add(floor);
 			add(solids);
-			solid.add(solids);
+			Registry.solid.add(solids);
 			
 			//Make keys
 			var key:Key;
@@ -99,7 +95,7 @@ package
 			{
 				door = new Door(p.@x, p.@y,p.@color);
 				add(door);
-				triggers.add(door);
+				Registry.solid.add(door);
 			}
 			
 			//Add coins to the level
@@ -137,6 +133,7 @@ package
 			{
 				var belt:Belt = new Belt(p.@x, p.@y,p.@type);
 				add(belt);
+				Registry.belts.add(belt);
 			}
 			
 			for each(p in level.xml.actors.enemy)
@@ -144,7 +141,7 @@ package
 				//Create the enemies
 				var enemy:Enemy = new Enemy(p.@x, p.@y);
 				add(enemy);
-				solid.add(enemy);
+				Registry.solid.add(enemy);
 			}
 			
 			//Add the player to the screen.
@@ -153,7 +150,7 @@ package
 				//Create the player
 				Registry.player = new Player(p.@x, p.@y);
 				add(Registry.player);
-				solid.add(Registry.player)
+				Registry.solid.add(Registry.player);
 			}
 			
 			//add the foreground last so it is on top
