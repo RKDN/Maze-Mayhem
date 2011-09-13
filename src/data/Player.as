@@ -14,38 +14,24 @@ package data
         {
             super(x, y)
 			
-			//Load in the player graphic.
-			loadGraphic(Registry.ImgPlayer, true, false);
-			
-			
+			loadGraphic(Registry.ImgPoint, false, false);
+
 			//Set the hitbox for the player.
-			width = 10;
-			height = 10;
-			offset.x = 3;
-			offset.y = 6;
-			
-			
-			//Set Player Animations
-			addAnimation("still", [0]);
-			addAnimation("leftidle", [4]);
-			addAnimation("rightidle", [3]);
-			addAnimation("upidle", [2]);
-			addAnimation("left", [4, 8], 10);
-			addAnimation("right", [3, 7], 10);
-			addAnimation("down", [1, 5], 10);
-			addAnimation("up", [2, 6], 10);
+			width = 12;
+			height = 12;
+			offset.x = -2;
+			offset.y = -2;
         }
  
         override public function update():void
         {
-			super.update();
 			
 			if (!FlxG.overlap(this,Registry.belts))
 			{
 				velocity.x = 0;
 				velocity.y = 0;
 			}
-			
+
 			//Global Timer for Player
 			counter += FlxG.elapsed;
 			
@@ -81,29 +67,30 @@ package data
 		public function controls():void
 		{
  
-            if(FlxG.keys.LEFT)
+            if(FlxG.keys.A)
             {
                 velocity.x = -Registry.moveSpeed;
-				play("left");
             }
-            else if(FlxG.keys.RIGHT)
+            else if(FlxG.keys.D)
             {
                 velocity.x = Registry.moveSpeed;
-				play("right");
             }
-            else if(FlxG.keys.UP)
+            else if(FlxG.keys.W)
             {
                 velocity.y = -Registry.moveSpeed;
-				play("up");
             }
-            else if(FlxG.keys.DOWN)
+            else if(FlxG.keys.S)
             {
                 velocity.y = Registry.moveSpeed;
-				play("down");
             }
-			else 
+			
+			//Mouse click
+			if (FlxG.mouse.justPressed())
 			{
-				play("still");
+				//Spawn a bullet
+				Registry.bullets.fire(x + 2, y);
+				Registry.bullets.fire(x + 4, y);
+				
 			}
 			
 			//Reset the level by pressing R
@@ -122,52 +109,50 @@ package data
 		//prevents the player from sticking on edges of tiles.
 		public function antistick():void
 		{			
-			if (FlxG.keys.LEFT && Registry.collideSolids)
+			if (FlxG.keys.A && Registry.collideSolids)
 			{
-				if (Utils.checkTopLeft() == 0)
+				if (Utils.checkTopLeft(this) == 0)
 				{
 					velocity.y = -Registry.moveSpeed;
 				}
-				if (Utils.checkBotLeft() == 0)
+				if (Utils.checkBotLeft(this) == 0)
 				{
 					velocity.y = Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.UP && Registry.collideSolids)
+			if (FlxG.keys.W && Registry.collideSolids)
 			{
-				if (Utils.checkTopLeft() == 0)
+				if (Utils.checkTopLeft(this) == 0)
 				{
 					velocity.x = -Registry.moveSpeed;
 				}
-				if (Utils.checkTopRight() == 0)
+				if (Utils.checkTopRight(this) == 0)
 				{
 					velocity.x = Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.DOWN && Registry.collideSolids)
+			if (FlxG.keys.S && Registry.collideSolids)
 			{
-				if (Utils.checkBotRight() == 0)
+				if (Utils.checkBotRight(this) == 0)
 				{
 					velocity.x = Registry.moveSpeed;
 				}
-				if (Utils.checkBotLeft() == 0)
+				if (Utils.checkBotLeft(this) == 0)
 				{
 					velocity.x = -Registry.moveSpeed;
 				}
 			}
-			if (FlxG.keys.RIGHT && Registry.collideSolids)
+			if (FlxG.keys.D && Registry.collideSolids)
 			{
-				if (Utils.checkTopRight() == 0)
+				if (Utils.checkTopRight(this) == 0)
 				{
 					velocity.y = -Registry.moveSpeed;
 				}
-				if (Utils.checkBotRight() == 0)
+				if (Utils.checkBotRight(this) == 0)
 				{
 					velocity.y = Registry.moveSpeed;
 				}
 			}			
-		}
-		
-		
+		}		
     }
 }

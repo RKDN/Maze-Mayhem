@@ -46,21 +46,21 @@ package
 		}
 		
 		//Some usefull checking functions.
-		public static function checkTopLeft():uint
+		public static function checkTopLeft(object:FlxSprite):uint
 		{
-			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.player.width - Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.player.height - Registry.tileSize) / Registry.tileSize))
+			return PlayState.solids.getTile(Math.floor((object.x + object.width - Registry.tileSize) / Registry.tileSize), Math.floor((object.y + object.height - Registry.tileSize) / Registry.tileSize))
 		}
-		public static function checkTopRight():uint
+		public static function checkTopRight(object:FlxSprite):uint
 		{
-			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y  + Registry.player.height - Registry.tileSize) / Registry.tileSize))
+			return PlayState.solids.getTile(Math.floor((object.x + Registry.tileSize) / Registry.tileSize), Math.floor((object.y  + object.height - Registry.tileSize) / Registry.tileSize))
 		}
-		public static function checkBotLeft():uint
+		public static function checkBotLeft(object:FlxSprite):uint
 		{
-			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.player.width - Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.tileSize) / Registry.tileSize))
+			return PlayState.solids.getTile(Math.floor((object.x + object.width - Registry.tileSize) / Registry.tileSize), Math.floor((object.y + Registry.tileSize) / Registry.tileSize))
 		}
-		public static function checkBotRight():uint
+		public static function checkBotRight(object:FlxSprite):uint
 		{
-			return PlayState.solids.getTile(Math.floor((Registry.player.x + Registry.tileSize) / Registry.tileSize), Math.floor((Registry.player.y + Registry.tileSize) / Registry.tileSize))
+			return PlayState.solids.getTile(Math.floor((object.x + Registry.tileSize) / Registry.tileSize), Math.floor((object.y + Registry.tileSize) / Registry.tileSize))
 		}
 	}
 

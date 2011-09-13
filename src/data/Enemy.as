@@ -24,7 +24,60 @@ package data
 				velocity.x = 0;
 				velocity.y = 0;
 			}
+			
+			//antistick();
+			
 			super.update();
+		}
+		
+		//Fix this
+		//prevents the player from sticking on edges of tiles.
+		public function antistick():void
+		{			
+			if (velocity.x > 0 && Registry.collideSolids)
+			{
+				if (Utils.checkTopLeft(this) == 0)
+				{
+					velocity.y = -Registry.moveSpeed;
+				}
+				if (Utils.checkBotLeft(this) == 0)
+				{
+					velocity.y = Registry.moveSpeed;
+				}
+			}
+			if (velocity.y < 0 && Registry.collideSolids)
+			{
+				if (Utils.checkTopLeft(this) == 0)
+				{
+					velocity.x = -Registry.moveSpeed;
+				}
+				if (Utils.checkTopRight(this) == 0)
+				{
+					velocity.x = Registry.moveSpeed;
+				}
+			}
+			if (velocity.y > 0 && Registry.collideSolids)
+			{
+				if (Utils.checkBotRight(this) == 0)
+				{
+					velocity.x = Registry.moveSpeed;
+				}
+				if (Utils.checkBotLeft(this) == 0)
+				{
+					velocity.x = -Registry.moveSpeed;
+				}
+			}
+			if (velocity.x < 0 && Registry.collideSolids)
+			{
+				if (Utils.checkTopRight(this) == 0)
+				{
+					velocity.y = -Registry.moveSpeed;
+				}
+				if (Utils.checkBotRight(this) == 0)
+				{
+					velocity.y = Registry.moveSpeed;
+				}
+			}			
 		}
 		
 	}

@@ -19,6 +19,7 @@ package
 		//Number of coins in the level.
 		public var coinCount:uint = 0;
 		
+		public var playertop:PlayerTop = new PlayerTop();
 		
 			
         override public function create():void
@@ -26,6 +27,8 @@ package
 			
 			Registry.solid = new FlxGroup();
 			Registry.belts = new FlxGroup();
+			
+			FlxG.mouse.show();
 			
 			//load the map
 			loadMap();
@@ -47,6 +50,17 @@ package
         override public function update():void
         {
 			super.update();
+			
+			
+			//Keeps the top of the player attached to the player mover
+			if (playertop.x != Registry.player.x)
+			{
+				playertop.x = Registry.player.x;
+			}
+			if (playertop.y != Registry.player.y)
+			{
+				playertop.y = Registry.player.y;
+			}
 			
 			//Set our global variable for collision checks.
 			Registry.collideSolids = FlxG.collide(Registry.solid, Registry.solid);  
@@ -144,6 +158,8 @@ package
 				Registry.solid.add(enemy);
 			}
 			
+			add(Registry.bullets);
+			
 			//Add the player to the screen.
 			for each(p in level.xml.actors.spawn)
 			{
@@ -152,6 +168,8 @@ package
 				add(Registry.player);
 				Registry.solid.add(Registry.player);
 			}
+			
+			add(playertop);
 			
 			//add the foreground last so it is on top
 			add(foreground);

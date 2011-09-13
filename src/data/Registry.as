@@ -10,7 +10,9 @@ package data
 		[Embed(source = "../assets/coin.png")] public static var ImgCoin:Class;
 		[Embed(source = "../assets/lava.png")] public static var ImgLava:Class;
 		[Embed(source = "../assets/switch.png")] public static var ImgButton:Class;
+		[Embed(source = "../assets/point.png")] public static var ImgPoint:Class;
 		[Embed(source = "../assets/exit.png")] public static var ImgExit:Class;
+		[Embed(source = "../assets/bullet.png")] public static var ImgBullet:Class;
 		[Embed(source = "../assets/beltLRUD.png")] public static var lrudBelt:Class;
 		[Embed(source = "../assets/beltTL.png")] public static var tlBelt:Class;
 		[Embed(source = "../assets/beltBL.png")] public static var blBelt:Class;
@@ -49,6 +51,9 @@ package data
 		//Enemy Spawn Tile
 		public static var eSpawnTile:uint = 35;
 		public static var agroDist:uint = 100;
+		
+		//Bullet Manager
+		public static var bullets:BulletManager = new BulletManager;
 		
 		//Coin pull distance
 		public static var coinDist:uint = 30;
