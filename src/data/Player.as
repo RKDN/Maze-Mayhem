@@ -14,7 +14,8 @@ package data
         {
             super(x, y)
 			
-			loadGraphic(Registry.ImgPoint, false, false);
+			//loadGraphic(Registry.ImgPoint, false, false);
+			visible = false;
 
 			//Set the hitbox for the player.
 			width = 12;
@@ -71,27 +72,18 @@ package data
             {
                 velocity.x = -Registry.moveSpeed;
             }
-            else if(FlxG.keys.D)
+            if(FlxG.keys.D)
             {
                 velocity.x = Registry.moveSpeed;
             }
-            else if(FlxG.keys.W)
+            if(FlxG.keys.W)
             {
                 velocity.y = -Registry.moveSpeed;
             }
-            else if(FlxG.keys.S)
+            if(FlxG.keys.S)
             {
                 velocity.y = Registry.moveSpeed;
             }
-			
-			//Mouse click
-			if (FlxG.mouse.justPressed())
-			{
-				//Spawn a bullet
-				Registry.bullets.fire(x + 2, y);
-				Registry.bullets.fire(x + 4, y);
-				
-			}
 			
 			//Reset the level by pressing R
 			if(FlxG.keys.R)

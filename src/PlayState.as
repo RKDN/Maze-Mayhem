@@ -2,6 +2,7 @@ package
 {
 	import mx.core.FlexSprite;
     import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	import data.*;
  
     public class PlayState extends FlxState
@@ -28,7 +29,8 @@ package
 			Registry.solid = new FlxGroup();
 			Registry.belts = new FlxGroup();
 			
-			FlxG.mouse.show();
+			//Set the mouse to visible.
+			FlxG.mouse.show(Registry.ImgPoint);
 			
 			//load the map
 			loadMap();
@@ -40,7 +42,7 @@ package
 			FlxG.camera.zoom = 2;
 			
 			//music
-			FlxG.playMusic(Registry.music, .5);
+			//FlxG.playMusic(Registry.music, .5);
 			
 			FlxG.camera.setBounds(0, 0, floor.width, floor.height);
 			
@@ -49,8 +51,6 @@ package
         }
         override public function update():void
         {
-			super.update();
-			
 			
 			//Keeps the top of the player attached to the player mover
 			if (playertop.x != Registry.player.x)
@@ -61,6 +61,8 @@ package
 			{
 				playertop.y = Registry.player.y;
 			}
+			
+			super.update();
 			
 			//Set our global variable for collision checks.
 			Registry.collideSolids = FlxG.collide(Registry.solid, Registry.solid);  
@@ -82,9 +84,12 @@ package
 			var level:OgmoLevel;
 			var p:XML;
 			
+			//temporary fix
+			if (Registry.currentLevel == 3) Registry.currentLevel = 1;
+			
 			//Decide which level we are on. Defaults to 1
 			if (Registry.currentLevel == 1) level = new OgmoLevel(new Registry.Level1);
-			if(Registry.currentLevel == 2) level = new OgmoLevel(new Registry.Level2);
+			if (Registry.currentLevel == 2) level = new OgmoLevel(new Registry.Level2);
 
 			//Load each layer
 			if (level.isLayer("floor")) floor = level.loadTilemap("floor", Registry.ImgTiles);
@@ -158,7 +163,8 @@ package
 				Registry.solid.add(enemy);
 			}
 			
-			add(Registry.bullets);
+			
+			add(playertop.bullets);
 			
 			//Add the player to the screen.
 			for each(p in level.xml.actors.spawn)

@@ -11,6 +11,11 @@ package data
 			super(x, y);
 			health = 100;			
 			loadGraphic(Registry.ImgEnemy, false, false);
+			
+			width = 12;
+			height = 12;
+			offset.x = -2;
+			offset.y = -2;
 		}
 		
 		override public function update():void
@@ -31,6 +36,7 @@ package data
 		}
 		
 		//Fix this
+		/*
 		//prevents the player from sticking on edges of tiles.
 		public function antistick():void
 		{			
@@ -77,9 +83,10 @@ package data
 				{
 					velocity.y = Registry.moveSpeed;
 				}
-			}			
+			}
+			
 		}
-		
+		*/
 	}
 
 }

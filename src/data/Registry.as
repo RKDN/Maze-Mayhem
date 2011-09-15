@@ -1,6 +1,7 @@
 package data
 {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
 	public class Registry
 	{
@@ -51,9 +52,6 @@ package data
 		//Enemy Spawn Tile
 		public static var eSpawnTile:uint = 35;
 		public static var agroDist:uint = 100;
-		
-		//Bullet Manager
-		public static var bullets:BulletManager = new BulletManager;
 		
 		//Coin pull distance
 		public static var coinDist:uint = 30;

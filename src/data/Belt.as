@@ -71,17 +71,17 @@ package data
 					if (beltType == "br")
 					{
 						Registry.player.velocity.x = -Registry.tramSpeed;
-						Registry.player.velocity.y = Registry.tramSpeed / 6;
+						Registry.player.velocity.y = Registry.tramSpeed / 3;
 					}
 					if (beltType == "tl")
 					{
-						Registry.player.velocity.x = Registry.tramSpeed / 6;
+						Registry.player.velocity.x = Registry.tramSpeed;
 						Registry.player.velocity.y = -Registry.tramSpeed;
 					}
 					if (beltType == "bl")
 					{
 						Registry.player.velocity.x = -Registry.tramSpeed;
-						Registry.player.velocity.y = -Registry.tramSpeed / 6;
+						Registry.player.velocity.y = -Registry.tramSpeed;
 					}
 				}
 				else
